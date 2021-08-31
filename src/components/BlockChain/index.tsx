@@ -70,10 +70,6 @@ const BlockChain = () => {
       <h1>Block Chain Demo</h1>
       <div>Total Blocks: 0</div>
 
-      {/*{testblocks}*/}
-      {/*{blockContents.map((i, num)=>{<Block block={1} hash={hashes[0]}></Block>})}*/}
-      {/*{blockContents[0]}*/}
-
       {blockContents.map(
          (content, i) => {
           const deletionHandler = (i == blockContents.length - 1) ?

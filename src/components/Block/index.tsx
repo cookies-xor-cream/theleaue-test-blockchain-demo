@@ -42,6 +42,7 @@ const Block = ({ block, previousHash = '0'.repeat(64), hash, onHash, onDelete }:
 
   return (
     <div className={styles.block}>
+    {isValidHash(hash) ? "valid" : "invalid"}
       <div>
         Block <span>{block}</span>
       </div>

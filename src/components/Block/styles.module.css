@@ -6,7 +6,7 @@
   max-width: 640px;
   padding: 24px;
 
-  margin-bottom: 24px;
+  margin-right: 24px;
 
   border-radius: 24px;
 
@@ -15,11 +15,6 @@
   border-color: black;
 
   box-shadow: -4px 4px darkslategray;
-}
-
-/* add a margin above the first block */
-:not(.block) + .block {
-  margin-top: 24px;
 }
 
 .block.invalid {

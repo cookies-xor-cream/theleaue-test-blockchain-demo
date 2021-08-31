@@ -70,31 +70,33 @@ const BlockChain = () => {
       <h1>Block Chain Demo</h1>
       <div>Total Blocks: {blockContents.length}</div>
 
-      {blockContents.map(
-         (content, i) => {
-          const deletionHandler = (i == blockContents.length - 1) ?
-            onDelete :
-            null;
+      <div className={styles.blockListWrapper}>
+        {blockContents.map(
+           (content, i) => {
+            const deletionHandler = (i == blockContents.length - 1) ?
+              onDelete :
+              null;
 
-          const previousHash = (i > 0) ?
-            hashes[i-1] :
-            "0".repeat(64); /*
-                             * the default value of previousHash
-                             * technically handled by the Block
-                             * I figured that this is more readable
-                            */
+            const previousHash = (i > 0) ?
+              hashes[i-1] :
+              "0".repeat(64); /*
+                               * the default value of previousHash
+                               * technically handled by the Block
+                               * I figured that this is more readable
+                              */
 
-          return (
-           <Block
-            key={i}
-            block={i+1} 
-            hash={hashes[i]}
-            previousHash={previousHash}
-            onHash={onHash}
-            onDelete={deletionHandler}/>
-          );
-         }
-      )}
+            return (
+             <Block
+              key={i}
+              block={i+1} 
+              hash={hashes[i]}
+              previousHash={previousHash}
+              onHash={onHash}
+              onDelete={deletionHandler}/>
+            );
+           }
+        )}
+      </div>
 
       <button type="button" onClick={() => onAdd()}>Add Block</button>
     </div> 

@@ -36,6 +36,8 @@ it("Shows not valid text", () => {
       onDelete={()=>{}}
     />
   );
+
+  expect(getByText("Not Valid")).toBeInTheDocument();
 });
 
 /**

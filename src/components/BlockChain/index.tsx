@@ -20,10 +20,10 @@ const BlockChain = () => {
    */
   const onAdd = () => {
     const newBlockContents = [...blockContents, ""];
-    setBlockContents(newBlockContents);
+    setBlockContents(() => newBlockContents);
 
     const newHashes = [...hashes, "0"];
-    setHashes(newHashes);
+    setHashes(() => newHashes);
   }
 
   /**
@@ -33,10 +33,12 @@ const BlockChain = () => {
    */
   const onDelete = () => {
     const newBlockContents = [...blockContents.slice(0, blockContents.length - 1)];
-    setBlockContents(newBlockContents);
+    setBlockContents(() => newBlockContents);
 
     const newHashes = [...hashes.slice(0, hashes.length - 1)]
-    setHashes(newHashes);
+    setHashes(() => newHashes);
+
+    // handle the case where the only remaining block is deleted
   }
 
   /**

@@ -40,9 +40,28 @@ const Block = ({ block, previousHash = '0'.repeat(64), hash, onHash, onDelete }:
     setNonce(i)
   };
 
+  // combines multiple styles together
+  const joinStyles = (...styles) => {
+    return styles.join(" ");
+  }
+
+  /*
+   * returns the set of styles to be applied to the block:
+   * block if the block is valid
+   * block + invalid if the block is invalid
+  */
+  const getBlockStyles = () => {
+    if(isValidHash(hash)) {
+      return styles.block;
+    }
+
+    else {
+      return joinStyles(styles.block, styles.invalid);
+    }
+  }
+
   return (
-    <div className={styles.block}>
-    {isValidHash(hash) ? "valid" : "invalid"}
+    <div className={getBlockStyles()}>
       <div>
         Block <span>{block}</span>
       </div>

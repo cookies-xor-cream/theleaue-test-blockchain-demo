@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "webpack-dev-server --open",
     "build": "webpack build",
-    "test": "jest --maxWorkers=4"
+    "test": "jest --maxWorkers=4",
+    "watch": "jest --watch --maxWorkers=8"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",

@@ -84,7 +84,6 @@ const BlockChain = () => {
                                 * technically handled by the Block
                                 * I figured that this is more readable
                                 */
-
             return (
              <Block
               key={i}

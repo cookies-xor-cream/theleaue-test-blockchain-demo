@@ -67,8 +67,10 @@ const BlockChain = () => {
    */
   return (
     <div className={styles.blockChain}>
-      <h1>Block Chain Demo</h1>
-      <div>Total Blocks: {blockContents.length}</div>
+      <div className={styles.stickyContainer}>
+        <div><h1>Block Chain Demo</h1> Total Blocks: {blockContents.length}</div>
+      </div>
+
 
       <div className={styles.blockListWrapper}>
         {blockContents.map(
@@ -98,7 +100,9 @@ const BlockChain = () => {
         )}
       </div>
 
-      <button type="button" onClick={() => onAdd()}>Add Block</button>
+      <div className={styles.stickyContainer}>
+        <button type="button" onClick={() => onAdd()}>Add Block</button>
+      </div>
     </div> 
   );
 }

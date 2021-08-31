@@ -1,6 +1,6 @@
 .blockChain {
-  width: 100%;
   text-align: center;
+  display: inline-block;
 }
 
 .blockListWrapper {
@@ -11,4 +11,26 @@
 
   margin-top: 12px;
   margin-bottom: 12px;
+}
+
+/* sticky containers so the `Add Block` button and text moves with the page */
+.stickyContainer {
+  display: flex;
+}
+
+.stickyContainer > * {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 24px;
+  top: 2px;
+}
+
+/* slightly larger text on the button */
+.stickyContainer > button {
+  font-size: 12pt;
+}
+
+/* */
+.stickyContainer > div > * {
+  margin-bottom: 2px;
 }

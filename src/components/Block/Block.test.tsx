@@ -47,8 +47,7 @@ it("Shows not valid text", () => {
 it("Delete is called correctly", () => {
   const block = 1;
 
-  let deleteCalled = false;
-  let onDelete = () => deleteCalled = true;
+  const onDelete = jest.fn()
 
   const { getByText } = render(
     <Block
@@ -60,7 +59,7 @@ it("Delete is called correctly", () => {
   );
 
   userEvent.click(getByText("Delete"));
-  expect(deleteCalled).toBeTruthy();
+  expect(onDelete).toHaveBeenCalledTimes(1);
 });
 
 /**

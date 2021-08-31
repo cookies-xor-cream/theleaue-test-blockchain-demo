@@ -23,7 +23,7 @@ interface Props {
  */
 const Block = ({ block, previousHash = '0'.repeat(64), hash, onHash, onDelete }: Props) => {
   const [nonce, setNonce] = useState<number>(0);
-  const [data, setData] = useState('');
+  const [data, setData] = useState<string>('');
 
   // Every time the hash needs to be recalculated, call onHash
   useEffect(() => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 
 import sha256 from 'sha256';
@@ -46,7 +46,7 @@ it("Shows not valid text", () => {
  */
 it("Delete is called correctly", () => {
   const block = 1;
-  
+
   let deleteCalled = false;
   let onDelete = () => deleteCalled = true;
 
@@ -106,6 +106,27 @@ it("Mining works correctly", () => {
  * we need to make sure the changes effect the hash and that onHash is called
  */
 it("Changing data effects hash", () => {
+  const block = 1;
 
+  const { getByLabelText } = render(
+    <Block
+      block={block} 
+      hash={""}
+      onHash={()=>{}}
+      onDelete={()=>{}}
+    />
+  );
+
+  const oldHash = document.getElementsByTagName('span')[3].textContent;
+
+  const dataInput = getByLabelText("Data", {selector: "textarea"});
+  userEvent.type(dataInput, "test input");
+  // fireEvent.change(dataInput, {target: {value: 'test input'}})
+
+  expect(screen.getByLabelText("Data")).toHaveValue('test input');
+
+  const newHash = document.getElementsByTagName('span')[3].textContent;
+
+  expect(oldHash).not.toBe(newHash);
 });
 

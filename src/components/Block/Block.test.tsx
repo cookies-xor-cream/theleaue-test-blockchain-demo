@@ -15,7 +15,7 @@ import Block from './';
  * onHash is called and the hash change is reflected in the component
  */
 it('Hash is set on load', () => {
-  
+
 });
 
 /**
@@ -23,7 +23,15 @@ it('Hash is set on load', () => {
  * On render, the text 'Not Valid' should be in the document as the hash is not valid
  */
 it("Shows not valid text", () => {
+  const { getByText } = render(
+    <Block
+      block={1}
+      onHash={()=>{}}
+      onDelete={()=>{}}
+    />
+  );
 
+  expect(getByText("Not Valid")).toBeInTheDocument();
 });
 
 /**

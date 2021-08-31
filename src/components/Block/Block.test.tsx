@@ -26,16 +26,16 @@ it('Hash is set on load', () => {
  * On render, the text 'Not Valid' should be in the document as the hash is not valid
  */
 it("Shows not valid text", () => {
+  const block = 1;
+
   const { getByText } = render(
     <Block
-      block={1}
+      block={block} 
       hash={""}
       onHash={()=>{}}
       onDelete={()=>{}}
     />
   );
-
-  // expect(getByText("Not Valid")).toBeInTheDocument();
 });
 
 /**
@@ -70,6 +70,17 @@ it("Mining works correctly", () => {
   const nonce: number = document.getElementsByTagName('span')[1].textContent;
   const hash: string = sha256(block + data + previousHash + nonce);
   expect(hash.substring(0, 3)).toBe('000');
+
+  render(
+    <Block
+      block={block} 
+      hash={hash}
+      onHash={()=>{}}
+      onDelete={()=>{}}
+    />
+  );
+
+  expect(screen.getByText("Valid")).toBeInTheDocument();
 });
 
 /**

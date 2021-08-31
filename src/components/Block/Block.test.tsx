@@ -18,7 +18,38 @@ import Block from './';
  * onHash is called and the hash change is reflected in the component
  */
 it('Hash is set on load', () => {
+  const block = 1;
+  const onHash = jest.fn();
 
+  const { getByText, rerender } = render(
+    <Block
+      block={block} 
+      hash={""}
+      onHash={onHash}
+      onDelete={()=>{}}
+    />
+  );
+
+  expect(onHash).toHaveBeenCalledTimes(1);
+
+  const data: string = "";
+  const previousHash: string = "0".repeat(64);
+  const nonce: number = 0;
+  const hash: string = sha256(block + data + previousHash + nonce);
+
+  expect(hash).toHaveLength(64);
+
+  rerender(
+    <Block
+      block={block} 
+      hash={hash}
+      onHash={()=>{}}
+      onDelete={()=>{}}
+    />
+  );
+
+  const renderedHash: string = document.getElementsByTagName('span')[3].textContent;
+  expect(renderedHash).toBe(hash);
 });
 
 /**
@@ -121,7 +152,7 @@ it("Changing data effects hash", () => {
   const dataInput = getByLabelText("Data", {selector: "textarea"});
   userEvent.type(screen.getByRole('textbox'), 'test input');
 
-  expect(screen.getByLabelText("Data")).toHaveValue('test input');
+  expect(getByLabelText("Data")).toHaveValue('test input');
 
   const data: string = dataInput.value;
   expect(data).toBe('test input');

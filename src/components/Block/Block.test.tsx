@@ -48,7 +48,16 @@ it("Delete is called correctly", () => {
  * The text 'Valid' should also be in the document
  */
 it("Mining works correctly", () => {
+  const { getByText } = render(
+    <Block
+      block={1}
+      onHash={()=>{}}
+      onDelete={()=>{}}
+    />
+  );
 
+  userEvent.click(getByText('Mine'));
+  expect(getByText("Valid")).toBeInTheDocument();
 });
 
 /**

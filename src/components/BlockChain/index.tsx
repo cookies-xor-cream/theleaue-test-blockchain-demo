@@ -11,14 +11,19 @@ import styles from './styles.module.css';
  */
 const BlockChain = () => {
   // Contains all hashes
-  const [hashes, setHashes] = useState<string[]>([]); 
+  const [hashes, setHashes] = useState<string[]>([]);
+  const [blockContents, setBlockContents] = useState<String[]>([]);
 
   /**
    * Complete this function
    * onAdd should create a new block
    */
   const onAdd = () => {
+    const newBlockContents = [...blockContents, ""];
+    setBlockContents(newBlockContents);
 
+    const newHashes = [...hashes, "0"];
+    setHashes(newHashes);
   }
 
   /**
@@ -39,6 +44,10 @@ const BlockChain = () => {
     setHashes([hash]);
   }
 
+  const testblocks = blockContents.map(
+    (i, c) => <Block key={i} block={1} hash={hashes[0]} onHash={onHash} onDelete={onDelete}/>
+  )
+
   /**
    * Fix the return statement
    * Currently we only show one block, this is incorrect.
@@ -50,7 +59,28 @@ const BlockChain = () => {
     <div className={styles.blockChain}>
       <h1>Block Chain Demo</h1>
       <div>Total Blocks: 0</div>
-      <Block block={1} hash={hashes[0]} onHash={onHash} onDelete={onDelete}/>
+
+      {/*{testblocks}*/}
+      {/*{blockContents.map((i, num)=>{<Block block={1} hash={hashes[0]}></Block>})}*/}
+      {/*{blockContents[0]}*/}
+
+      {blockContents.map(
+         (content, i) => {
+          const deletion = (i == blockContents.length) ?
+          onDelete :
+          ()=>{}
+
+          return (
+           <Block
+            key={i}
+            block={i+1} 
+            hash={hashes[i]}
+            onHash={onHash}
+            onDelete={onDelete}/>
+          );
+         }
+      )}
+
       <button type="button" onClick={() => onAdd()}>Add Block</button>
     </div> 
   );

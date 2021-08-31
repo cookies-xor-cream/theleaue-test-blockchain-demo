@@ -8,11 +8,6 @@ import sha256 from 'sha256';
 import Block from './';
 
 /**
- * Block Testing
- * Please Complete these tests
- */
-
-/**
  * Hash is set on load
  * We need to check that when component is rendered, 
  * onHash is called and the hash change is reflected in the component

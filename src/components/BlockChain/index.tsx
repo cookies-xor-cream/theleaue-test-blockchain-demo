@@ -74,7 +74,7 @@ const BlockChain = () => {
          (content, i) => {
           const deletionHandler = (i == blockContents.length - 1) ?
             onDelete :
-            ()=>{};
+            null;
 
           const previousHash = (i > 0) ?
             hashes[i-1] :

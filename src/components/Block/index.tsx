@@ -41,16 +41,16 @@ const Block = ({ block, previousHash = '0'.repeat(64), hash, onHash, onDelete }:
   };
 
   // combines multiple styles together
-  const joinStyles = (...styles) => {
+  const joinStyles = (...styles: string): string => {
     return styles.join(" ");
   }
 
-  /*
-   * returns the set of styles to be applied to the block:
-   * block if the block is valid
-   * block + invalid if the block is invalid
-  */
-  const getBlockStyles = () => {
+  /**
+    * returns the set of styles to be applied to the block:
+    * block if the block is valid
+    * block + invalid if the block is invalid
+    */
+  const getBlockStyles = (): string => {
     if(isValidHash(hash)) {
       return styles.block;
     }

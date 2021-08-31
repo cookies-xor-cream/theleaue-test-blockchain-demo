@@ -12,11 +12,9 @@ import styles from './styles.module.css';
 const BlockChain = () => {
   // Contains all hashes
   const [hashes, setHashes] = useState<string[]>([]);
-  const [blockContents, setBlockContents] = useState<String[]>([]);
 
-  useEffect(()=>{
-    console.log("?!")
-  }, [hashes])
+  // contains all the content
+  const [blockContents, setBlockContents] = useState<string[]>([]);
 
   /**
    * onAdd creates a new block
@@ -25,11 +23,11 @@ const BlockChain = () => {
    * it updates the state synchronously to avoid race conditions
    */
   const onAdd = () => {
-    const newBlockContents = [...blockContents, ""];
+    const newBlockContents: string[] = [...blockContents, ""];
     setBlockContents(() => newBlockContents);
 
     // increase the size of hashes, this instantly changes
-    const newHashes = [...hashes, "0".repeat(64)];
+    const newHashes: string[] = [...hashes, "0".repeat(64)];
     setHashes(() => newHashes);
   }
 
@@ -39,10 +37,14 @@ const BlockChain = () => {
    * Should only need to pass to the last block
    */
   const onDelete = () => {
-    const newBlockContents = [...blockContents.slice(0, blockContents.length - 1)];
+    const newBlockContents: string[] = [
+      ...blockContents.slice(0, blockContents.length - 1)
+    ];
     setBlockContents(() => newBlockContents);
 
-    const newHashes = [...hashes.slice(0, hashes.length - 1)]
+    const newHashes: string[] = [
+      ...hashes.slice(0, hashes.length - 1)
+    ];
     setHashes(() => newHashes);
 
     // handle the case where the only remaining block is deleted
@@ -53,17 +55,13 @@ const BlockChain = () => {
    * Sets the new hash value to `hash` (calculated by the block)
    */
   const onHash = (_block: number, hash: string) => {
-    const newHashes = [...hashes];
+    const newHashes: string[] = [...hashes];
     newHashes[_block-1] = hash;
     setHashes(newHashes);
   }
 
   /**
-   * Fix the return statement
-   * Currently we only show one block, this is incorrect.
-   * We need to be able to show multiple blocks as a block chain should.
-   * You'll most likely need to add more functions or states to fix the render. Figure out a way you can go about this.
-   * Total Blocks is also incorrect.
+   * Displays a list of blocks and the number that there are dynamically
    */
   return (
     <div className={styles.blockChain}>
@@ -81,11 +79,11 @@ const BlockChain = () => {
 
             const previousHash = (i > 0) ?
               hashes[i-1] :
-              "0".repeat(64); /*
-                               * the default value of previousHash
-                               * technically handled by the Block
-                               * I figured that this is more readable
-                              */
+              "0".repeat(64); /**
+                                * the default value of previousHash
+                                * technically handled by the Block
+                                * I figured that this is more readable
+                                */
 
             return (
              <Block

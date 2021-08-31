@@ -70,7 +70,7 @@ it("Delete is called correctly", () => {
 it("Mining works correctly", () => {
   const block = 1;
 
-  const { getByText } = render(
+  const { getByText, rerender } = render(
     <Block
       block={block} 
       hash={""}
@@ -87,7 +87,7 @@ it("Mining works correctly", () => {
   const hash: string = sha256(block + data + previousHash + nonce);
   expect(hash.substring(0, 3)).toBe('000');
 
-  render(
+  rerender(
     <Block
       block={block} 
       hash={hash}

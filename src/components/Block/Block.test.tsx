@@ -45,7 +45,22 @@ it("Shows not valid text", () => {
  * We need to make sure that when clicking on delete, the delete function is called
  */
 it("Delete is called correctly", () => {
+  const block = 1;
+  
+  let deleteCalled = false;
+  let onDelete = () => deleteCalled = true;
 
+  const { getByText } = render(
+    <Block
+      block={block} 
+      hash={""}
+      onHash={()=>{}}
+      onDelete={onDelete}
+    />
+  );
+
+  userEvent.click(getByText("Delete"));
+  expect(deleteCalled).toBeTruthy();
 });
 
 /**

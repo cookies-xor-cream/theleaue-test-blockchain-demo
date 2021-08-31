@@ -32,7 +32,11 @@ const BlockChain = () => {
    * Should only need to pass to the last block
    */
   const onDelete = () => {
-    
+    const newBlockContents = [...blockContents.slice(0, blockContents.length - 1)];
+    setBlockContents(newBlockContents);
+
+    const newHashes = [...hashes.slice(0, hashes.length - 1)]
+    setHashes(newHashes);
   }
 
   /**
@@ -43,10 +47,6 @@ const BlockChain = () => {
   const onHash = (_block: number, hash: string) => {
     setHashes([hash]);
   }
-
-  const testblocks = blockContents.map(
-    (i, c) => <Block key={i} block={1} hash={hashes[0]} onHash={onHash} onDelete={onDelete}/>
-  )
 
   /**
    * Fix the return statement
@@ -66,7 +66,7 @@ const BlockChain = () => {
 
       {blockContents.map(
          (content, i) => {
-          const deletion = (i == blockContents.length) ?
+          const deletionHandler =(i == blockContents.length - 1) ?
           onDelete :
           ()=>{}
 
@@ -76,7 +76,7 @@ const BlockChain = () => {
             block={i+1} 
             hash={hashes[i]}
             onHash={onHash}
-            onDelete={onDelete}/>
+            onDelete={deletionHandler}/>
           );
          }
       )}

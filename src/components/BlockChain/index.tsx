@@ -68,7 +68,7 @@ const BlockChain = () => {
   return (
     <div className={styles.blockChain}>
       <h1>Block Chain Demo</h1>
-      <div>Total Blocks: 0</div>
+      <div>Total Blocks: {blockContents.length}</div>
 
       {blockContents.map(
          (content, i) => {

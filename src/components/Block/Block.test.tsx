@@ -107,7 +107,7 @@ it("Mining works correctly", () => {
 it("Changing data effects hash", () => {
   const block = 1;
 
-  const { getByLabelText } = render(
+  const { getByText, rerender, getByLabelText } = render(
     <Block
       block={block} 
       hash={""}
@@ -116,16 +116,31 @@ it("Changing data effects hash", () => {
     />
   );
 
-  const oldHash = document.getElementsByTagName('span')[3].textContent;
+  const oldHash: string = document.getElementsByTagName('span')[3].textContent;
 
   const dataInput = getByLabelText("Data", {selector: "textarea"});
-  userEvent.type(dataInput, "test input");
-  // fireEvent.change(dataInput, {target: {value: 'test input'}})
+  userEvent.type(screen.getByRole('textbox'), 'test input');
 
   expect(screen.getByLabelText("Data")).toHaveValue('test input');
 
-  const newHash = document.getElementsByTagName('span')[3].textContent;
+  const data: string = dataInput.value;
+  expect(data).toBe('test input');
 
-  expect(oldHash).not.toBe(newHash);
+  const previousHash: string = "0".repeat(64);
+  const nonce: number = document.getElementsByTagName('span')[1].textContent;
+  const hash: string = sha256(block + data + previousHash + nonce);
+
+  rerender(
+    <Block
+      block={block} 
+      hash={hash}
+      onHash={()=>{}}
+      onDelete={()=>{}}
+    />
+  );
+
+  const newHash: string = document.getElementsByTagName('span')[3].textContent;
+
+  expect(newHash).not.toBe(oldHash);
 });
 

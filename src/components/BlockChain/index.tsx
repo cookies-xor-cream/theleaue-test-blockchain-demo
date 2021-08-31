@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Block from '../Block';
 
@@ -14,15 +14,22 @@ const BlockChain = () => {
   const [hashes, setHashes] = useState<string[]>([]);
   const [blockContents, setBlockContents] = useState<String[]>([]);
 
+  useEffect(()=>{
+    console.log("?!")
+  }, [hashes])
+
   /**
-   * Complete this function
-   * onAdd should create a new block
+   * onAdd creates a new block
+   * it initializes the content as an empty string
+   * it initializes the hash as 0 (64 hex digits)
+   * it updates the state synchronously to avoid race conditions
    */
   const onAdd = () => {
     const newBlockContents = [...blockContents, ""];
     setBlockContents(() => newBlockContents);
 
-    const newHashes = [...hashes, "0"];
+    // increase the size of hashes, this instantly changes
+    const newHashes = [...hashes, "0".repeat(64)];
     setHashes(() => newHashes);
   }
 
@@ -42,12 +49,13 @@ const BlockChain = () => {
   }
 
   /**
-   * Complete this function
-   * onHash should update the corresponding index in the state 'hashes'
-   * E.g., block 1 should update its corresponding index in the state 'hashes'
+   * Updates the hash of the block with block number `_block`
+   * Sets the new hash value to `hash` (calculated by the block)
    */
   const onHash = (_block: number, hash: string) => {
-    setHashes([hash]);
+    const newHashes = [...hashes];
+    newHashes[_block-1] = hash;
+    setHashes(newHashes);
   }
 
   /**
@@ -68,15 +76,24 @@ const BlockChain = () => {
 
       {blockContents.map(
          (content, i) => {
-          const deletionHandler =(i == blockContents.length - 1) ?
-          onDelete :
-          ()=>{}
+          const deletionHandler = (i == blockContents.length - 1) ?
+            onDelete :
+            ()=>{};
+
+          const previousHash = (i > 0) ?
+            hashes[i-1] :
+            "0".repeat(64); /*
+                             * the default value of previousHash
+                             * technically handled by the Block
+                             * I figured that this is more readable
+                            */
 
           return (
            <Block
             key={i}
             block={i+1} 
             hash={hashes[i]}
+            previousHash={previousHash}
             onHash={onHash}
             onDelete={deletionHandler}/>
           );

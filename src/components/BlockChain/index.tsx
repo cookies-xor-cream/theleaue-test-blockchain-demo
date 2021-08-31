@@ -32,9 +32,8 @@ const BlockChain = () => {
   }
 
   /**
-   * Complete this function
-   * onDelete should delete the last block
-   * Should only need to pass to the last block
+   * onDelete deletes the last block
+   * Only the last block receives this function
    */
   const onDelete = () => {
     const newBlockContents: string[] = [
@@ -46,8 +45,6 @@ const BlockChain = () => {
       ...hashes.slice(0, hashes.length - 1)
     ];
     setHashes(() => newHashes);
-
-    // handle the case where the only remaining block is deleted
   }
 
   /**

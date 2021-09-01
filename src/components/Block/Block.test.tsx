@@ -16,7 +16,7 @@ it('Hash is set on load', () => {
   const block = 1;
   const onHash = jest.fn();
 
-  const { getByText, rerender, getByTestId } = render(
+  const { getByText, getByTestId, rerender } = render(
     <Block
       block={block} 
       hash={""}
@@ -96,7 +96,7 @@ it("Delete is called correctly", () => {
 it("Mining works correctly", () => {
   const block = 1;
 
-  const { getByText, rerender, getByTestId } = render(
+  const { getByText, getByTestId, rerender } = render(
     <Block
       block={block} 
       hash={""}
@@ -133,7 +133,7 @@ it("Mining works correctly", () => {
 it("Changing data effects hash", () => {
   const block = 1;
 
-  const { getByText, rerender, getByLabelText, getByTestId } = render(
+  const { getByText, getByLabelText, getByTestId, rerender } = render(
     <Block
       block={block} 
       hash={""}

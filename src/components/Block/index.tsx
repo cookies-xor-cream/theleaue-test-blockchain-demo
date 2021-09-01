@@ -66,7 +66,7 @@ const Block = ({ block, previousHash = '0'.repeat(64), hash, onHash, onDelete }:
         Block <span>{block}</span>
       </div>
       <div>
-        Nonce <span>{nonce}</span>
+        Nonce <span data-testid="nonce-value">{nonce}</span>
       </div>
       <div>
         <label htmlFor={`data-${block}`}>Data</label>
@@ -76,7 +76,7 @@ const Block = ({ block, previousHash = '0'.repeat(64), hash, onHash, onDelete }:
         Previous Hash <span>{previousHash}</span>
       </div>
       <div>
-        Hash <span>{hash}</span>
+        Hash <span data-testid="hash-value">{hash}</span>
       </div>
       <div>
         Valid Block <span>{hash && isValidHash(hash) ? "Valid" : "Not Valid"}</span>

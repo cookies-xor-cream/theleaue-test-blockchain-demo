@@ -16,7 +16,7 @@ it('Hash is set on load', () => {
   const block = 1;
   const onHash = jest.fn();
 
-  const { getByText, rerender } = render(
+  const { getByText, rerender, getByTestId } = render(
     <Block
       block={block} 
       hash={""}
@@ -43,7 +43,7 @@ it('Hash is set on load', () => {
     />
   );
 
-  const renderedHash: string = document.getElementsByTagName('span')[3].textContent;
+  const renderedHash: string = getByTestId('hash-value').textContent;
   expect(renderedHash).toBe(hash);
 });
 
@@ -96,7 +96,7 @@ it("Delete is called correctly", () => {
 it("Mining works correctly", () => {
   const block = 1;
 
-  const { getByText, rerender } = render(
+  const { getByText, rerender, getByTestId } = render(
     <Block
       block={block} 
       hash={""}
@@ -109,7 +109,7 @@ it("Mining works correctly", () => {
 
   const data: string = "";
   const previousHash: string = "0".repeat(64);
-  const nonce: number = document.getElementsByTagName('span')[1].textContent;
+  const nonce: number = getByTestId('nonce-value').textContent;
   const hash: string = sha256(block + data + previousHash + nonce);
   expect(hash.substring(0, 3)).toBe('000');
 
@@ -133,7 +133,7 @@ it("Mining works correctly", () => {
 it("Changing data effects hash", () => {
   const block = 1;
 
-  const { getByText, rerender, getByLabelText } = render(
+  const { getByText, rerender, getByLabelText, getByTestId } = render(
     <Block
       block={block} 
       hash={""}
@@ -142,7 +142,7 @@ it("Changing data effects hash", () => {
     />
   );
 
-  const oldHash: string = document.getElementsByTagName('span')[3].textContent;
+  const oldHash: string = getByTestId('hash-value').textContent;
 
   const dataInput = getByLabelText("Data", {selector: "textarea"});
   userEvent.type(screen.getByRole('textbox'), 'test input');
@@ -153,7 +153,7 @@ it("Changing data effects hash", () => {
   expect(data).toBe('test input');
 
   const previousHash: string = "0".repeat(64);
-  const nonce: number = document.getElementsByTagName('span')[1].textContent;
+  const nonce: number = getByTestId('nonce-value').textContent;
   const hash: string = sha256(block + data + previousHash + nonce);
 
   rerender(
@@ -165,7 +165,7 @@ it("Changing data effects hash", () => {
     />
   );
 
-  const newHash: string = document.getElementsByTagName('span')[3].textContent;
+  const newHash: string = getByTestId('hash-value').textContent;
 
   expect(newHash).not.toBe(oldHash);
 });
